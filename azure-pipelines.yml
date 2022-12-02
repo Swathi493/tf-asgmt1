@@ -8,7 +8,18 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+ -group: Terraform-dev
+ name: data-fac-name
+ value: '$(data_factory_name)'
+
+
 steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 
+       echo 'value  $(data_factory_name)''
 - task: FileTransform@1
   inputs:
     folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
