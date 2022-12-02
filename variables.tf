@@ -20,6 +20,6 @@ variable "tags" {
   type = object({
     created_by       = string
     created_for      = string
-    management_group = string
+    
   })
 }
