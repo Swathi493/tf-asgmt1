@@ -18,9 +18,9 @@ steps:
 
 - task: FileTransform@1
   inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/parameters.json'
+    folderPath: '$(System.DefaultWorkingDirectory)/parameter.json'
     fileType: 'json'
-    targetFiles: 'parameters.json'
+    targetFiles: 'parameter.json'
 - task: TerraformInstaller@0
   inputs:
     terraformVersion: 'latest'
