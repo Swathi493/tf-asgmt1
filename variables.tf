@@ -10,20 +10,7 @@ variable "location" {
   default     = "eastus"
 }
 
-variable "storage_account_name" {
-  type        = string
-  description = "Name of the storage account, It has to be unique"
-}
 
-variable "container_name" {
-  type        = string
-  description = "Name of the container"
-}
-
-variable "state_file_name" {
-  type        = string
-  description = "Name of the Terraform statefile"
-}
 
 variable "data_factory_name" {
   type        = string
