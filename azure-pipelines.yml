@@ -26,7 +26,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    commandOptions: 'terraform force-unlock'
+    commandOptions: 'terraform force-unlock -force 4069f3af-33ea-fe99-0fe8-6cd3633f2626'
     backendServiceArm: 'az-asgmts'
     backendAzureRmResourceGroupName: 'Devops-RG'
     backendAzureRmStorageAccountName: 'devopstrainingstorage'
