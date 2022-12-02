@@ -20,9 +20,10 @@ steps:
     targetType: 'inline'
     script: 
        echo 'value:$(data_factory_name)'
+-
 - task: FileTransform@1
   inputs:
-    folderPath: ''
+    folderPath: '$(System.DefaultWorkingDirectory)/**'
     fileType: 'json'
     targetFiles: 'parameters.json'
 - task: TerraformInstaller@0
