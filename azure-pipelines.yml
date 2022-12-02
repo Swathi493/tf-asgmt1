@@ -20,7 +20,7 @@ steps:
     targetType: 'inline'
     script: 
        echo 'value:$(data_factory_name)'
--
+
 - task: FileTransform@1
   inputs:
     folderPath: '$(System.DefaultWorkingDirectory)/**'
