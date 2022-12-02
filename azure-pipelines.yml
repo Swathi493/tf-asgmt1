@@ -26,11 +26,10 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    
     backendServiceArm: 'az-asgmts'
     backendAzureRmResourceGroupName: 'Devops-RG'
     backendAzureRmStorageAccountName: 'devopstrainingstorage'
-    backendAzureRmContainerName: 'swathi-tfstate'
+    backendAzureRmContainerName: 'swathi-tf-state'
     backendAzureRmKey: 'terraform.tfstate'
 - task: TerraformTaskV3@3
   inputs:
