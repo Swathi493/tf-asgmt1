@@ -10,29 +10,21 @@ variable "location" {
   default     = "eastus"
 }
 
-variable "storage_account_name" {
-  type        = string
-  description = "Name of the storage account, It has to be unique"
-}
 
-variable "container_name" {
-  type        = string
-  description = "Name of the container"
-}
-
-variable "state_file_name" {
-  type        = string
-  description = "Name of the Terraform statefile"
-}
 
 variable "data_factory_name" {
   type        = string
   description = "Name of the azure data factory(DEV)"
 }
+variable "data_bricks_name" {
+  type        = string
+  description = "Name of the azure data bricks(DEV)"
+}
+
 variable "tags" {
   type = object({
     created_by       = string
     created_for      = string
-    management_group = string
+    
   })
 }

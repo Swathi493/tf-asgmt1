@@ -1,8 +1,7 @@
 {
-"storage_account_name" : "",
-"container_name "      : "",
-"state_file_name"      : "",
+
 "data_factory_name" : "",
+"data_bricks_name"  : "",
 "tags" :{
     "created_by"       : "swathi.vijai@tigeranalytics.com",
     "created_for"      : "training"
