@@ -15,11 +15,6 @@ variables:
 
 
 steps:
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 
-       echo "value $(data_factory_name)"
 
 - task: FileTransform@1
   inputs:
