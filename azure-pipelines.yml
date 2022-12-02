@@ -10,8 +10,8 @@ pool:
 
 variables:
  -group: Terraform-dev
- name: data-fac-name
- value: '$(data_factory_name)'
+ -name: data-fac-name
+   value:'$(data_factory_name)'
 
 
 steps:
@@ -19,11 +19,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: 
-       echo 'value:$(data_factory_name)'
+       echo "value $(data_factory_name)"
 
 - task: FileTransform@1
   inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/**'
+    folderPath: '$(System.DefaultWorkingDirectory)/parameters.json'
     fileType: 'json'
     targetFiles: 'parameters.json'
 - task: TerraformInstaller@0
