@@ -18,7 +18,7 @@ steps:
 
 - task: FileTransform@1
   inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/parameter.json'
+    folderPath: 'Swathi493/tf-asgmt1/parameter.json'
     fileType: 'json'
     targetFiles: 'parameter.json'
 - task: TerraformInstaller@0
