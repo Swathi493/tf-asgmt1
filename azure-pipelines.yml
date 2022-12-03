@@ -15,7 +15,7 @@ stages:
         displayName: Deploy Dev Infrastructure
         environment: Dev
         variables:
-           -group: Terraform-dev
+         -group: Terraform-dev
         strategy:
             runOnce:
                 deploy:
