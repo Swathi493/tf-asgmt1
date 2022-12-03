@@ -8,40 +8,49 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
- -group: Terraform-dev
+stages:
+  - stage: development
+    jobs:
+      - deployment: Deploy
+        displayName: Deploy Dev Infrastructure
+        environment: Dev
+        variables:
+           -group: Terraform-dev
+        strategy:
+            runOnce:
+                deploy:
+                   steps:
+                    - checkout: self
+                    
+                    - task: FileTransform@1
+                      inputs:
+                          folderPath: '$(System.DefaultWorkingDirectory)'
+                          fileType: 'json'
+                          targetFiles: 'parameter.json'
+                    - task: TerraformInstaller@0
+                      inputs:
+                              terraformVersion: 'latest'
+                    - task: TerraformTaskV3@3
+                      inputs:
+                              provider: 'azurerm'
+                              command: 'init'
+                              backendServiceArm: 'az-asgmts'
+                              backendAzureRmResourceGroupName: 'Devops-RG'
+                              backendAzureRmStorageAccountName: 'devopstrainingstorage'
+                              backendAzureRmContainerName: 'swathi-tfstate-asgmt'
+                              backendAzureRmKey: 'terraform.tfstate'
+                    - task: TerraformTaskV3@3
+                      inputs:
+                           provider: 'azurerm'
+                           command: 'plan'
+                           commandOptions: '--var-file="$(System.DefaultWorkingDirectory)/parameter.json"'
+                           environmentServiceNameAzureRM: 'az-asgmts'
+                    - task: TerraformTaskV3@3
+                      inputs:
+                             provider: 'azurerm'
+                             command: 'apply'
+                             commandOptions: '--var-file="$(System.DefaultWorkingDirectory)/parameter.json"'
+                             environmentServiceNameAzureRM: 'az-asgmts'
 
-
-steps:
-
-- task: FileTransform@1
-  inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)'
-    fileType: 'json'
-    targetFiles: 'parameter.json'
-- task: TerraformInstaller@0
-  inputs:
-    terraformVersion: 'latest'
-- task: TerraformTaskV3@3
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: 'az-asgmts'
-    backendAzureRmResourceGroupName: 'Devops-RG'
-    backendAzureRmStorageAccountName: 'devopstrainingstorage'
-    backendAzureRmContainerName: 'swathi-tfstate-asgmt'
-    backendAzureRmKey: 'terraform.tfstate'
-- task: TerraformTaskV3@3
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    commandOptions: '--var-file="$(System.DefaultWorkingDirectory)/parameter.json"'
-    environmentServiceNameAzureRM: 'az-asgmts'
-- task: TerraformTaskV3@3
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    commandOptions: '--var-file="$(System.DefaultWorkingDirectory)/parameter.json"'
-    environmentServiceNameAzureRM: 'az-asgmts'
 
 
