@@ -11,9 +11,9 @@ pool:
 variables:
   - group: Terraform-dev
   - name: data_bricks_name
-    value: $(data_bricks_name)
+    value: '$(data_bricks_name)'
   - name: data_factory_name
-    value: $(data_factory_name)
+    value: '$(data_factory_name)'
 
 stages:
   - stage: development
