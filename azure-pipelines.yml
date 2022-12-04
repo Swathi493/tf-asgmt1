@@ -10,7 +10,9 @@ pool:
 
 variables:
   -group: Terraform-dev
-   name: 
+  -name: data_bricks_name
+  value: $(data_bricks_name)
+
 stages:
   - stage: development
     jobs:
