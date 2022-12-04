@@ -8,14 +8,17 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  -group: Terraform-dev
+   name: 
 stages:
   - stage: development
     jobs:
       - deployment: Deploy
         
         environment: Dev
-        variables:
-         -group: Terraform-dev
+        
+          
         strategy:
             runOnce:
                 deploy:
