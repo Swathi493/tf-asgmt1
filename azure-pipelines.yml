@@ -12,7 +12,7 @@ stages:
   - stage: development
     jobs:
       - deployment: Deploy
-        displayName: Deploy Dev Infrastructure
+        
         environment: Dev
         variables:
          -group: Terraform-dev
