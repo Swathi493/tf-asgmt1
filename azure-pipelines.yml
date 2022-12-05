@@ -60,7 +60,7 @@ stages:
     jobs:
       - deployment: Deploy
         variables:
-        - group: Terraform-test
+        - group: Terraform-test1
        
         environment: Dev
         
