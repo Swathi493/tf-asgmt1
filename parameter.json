@@ -5,7 +5,7 @@
 "vn_name" : "",
 "sn_name" : "",
 "sql_server_name" : "",
-"mssql_vnrule_name": "",
+"sqldbname": "",
 "vnet_cidr_prefix" : "",
 "subnet1_cidr_prefix" : "",
 "admin" : "",

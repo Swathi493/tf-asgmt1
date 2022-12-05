@@ -32,9 +32,9 @@ variable "sql_server_name" {
   type        = string
   description = "Name of the azure sql server"
 }
-variable "mssql_vnrule_name" {
+variable "sqldbname" {
   type        = string
-  description = "Name of the azure virtual network rule"
+  description = "Name of the azure sql db name"
 }
 variable "vnet_cidr_prefix" {
   type = string

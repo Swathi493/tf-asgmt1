@@ -46,31 +46,27 @@ resource "random_password" "password" {
 resource "azurerm_mssql_server" "dev" {
   name                         = var.sql_server_name
   resource_group_name          = var.rsgrp
-  location                     = var.loca
+  location                     = var.location
   administrator_login          = var.admin
   administrator_login_password = random_password.password.result
   tags = var.tags
+  version                      = "12.0"
   
-  
-
-  sku_name   = "GP_Gen5_2"
-  storage_mb = 5120
-  version    = "5.7"
-
-  backup_retention_days        = 7
-  geo_redundant_backup_enabled = false
-  ssl_enforcement_enabled      = true
+  minimum_tls_version          = "1.2"
 
 }
-
-resource "azurerm_mssql_virtual_network_rule" "dev" {
-  name      = var.mssql_vnrule_name
-  
-  subnet_id = azurerm_subnet.dev.id
-  
-
-  
-  resource_group_name = var.rsgrp
-  server_name         = azurerm_mysql_server.dev.name
-  
+resource "azurerm_mssql_database" "dev" {
+  name           = var.sqldbname
+  server_id      = azurerm_mssql_server.dev.id
+  collation      = "SQL_Latin1_General_CP1_CI_AS"
+  license_type   = "LicenseIncluded"
+  max_size_gb    = 4
+  read_scale     = true
+  sku_name       = "S0"
+  zone_redundant = true
 }
+
+  
+
+  
+  
