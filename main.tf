@@ -79,7 +79,7 @@ resource "azurerm_key_vault" "KeyVault" {
  
 
  data "azuread_service_principal" "devopsSP" {
-  display_name = "az-asgmts"
+  display_name = "sp-dev-asgmt"
 }
 
 resource "azurerm_key_vault_access_policy" "devOpsSPpolicy" {
