@@ -9,6 +9,7 @@
 "vnet_cidr_prefix" : "",
 "subnet1_cidr_prefix" : "",
 "admin" : "",
+"Keyvault_name": "",
 
 "tags" :{
     "created_by"       : "swathi.vijai@tigeranalytics.com",

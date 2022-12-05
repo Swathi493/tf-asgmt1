@@ -1,4 +1,5 @@
 
+data "azurerm_client_config" "Current" {}
 resource "azurerm_data_factory" "dev" {
   name                = var.data_factory_name
   resource_group_name = var.rsgrp
@@ -62,7 +63,43 @@ resource "azurerm_mssql_database" "dev" {
   license_type   = "LicenseIncluded"
   sku_name = "Basic"
 }
+resource "azurerm_key_vault" "KeyVault" {
+  name                        = var.Keyvault_name
+  location                    = var.location
+  resource_group_name         = var.rsgrp
+  enabled_for_disk_encryption = true
+  enabled_for_deployment      = true
+  enabled_for_template_deployment = true
+  tenant_id                   = data.azurerm_client_config.Current.tenant_id
+  soft_delete_retention_days  = 7
+  purge_protection_enabled    = false
+  sku_name                    = standard
 
+  network_acls {
+    bypass                     = "AzureServices"
+    default_action             = "Allow"    
+  }
+}
+
+# Get DevOps Service Principal information
+data "azuread_service_principal" "devopsSP" {
+  display_name = "az-asgmts"
+}
+
+resource "azurerm_key_vault_access_policy" "devOpsSPpolicy" {
+  key_vault_id       = azurerm_key_vault.KeyVault.id
+  tenant_id          = data.azurerm_client_config.Current.tenant_id
+  object_id          = data.azuread_service_principal.devopsSP.object_id
+  secret_permissions = ["Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set"]
+}
+
+resource "azurerm_key_vault_secret" "SQLAdminSecret" {
+  name         = "sql-admin-password"
+  value        = random_password.password.result
+  key_vault_id = azurerm_key_vault.KeyVault.id
+
+  depends_on = [azurerm_key_vault_access_policy.devOpsSPpolicy]
+}
   
 
   
