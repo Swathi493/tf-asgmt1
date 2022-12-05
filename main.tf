@@ -52,19 +52,7 @@ resource "azurerm_mssql_server" "dev" {
   tags = var.tags
   version                      = "12.0"
   
-<<<<<<< HEAD
   minimum_tls_version          = "1.2"
-=======
-  
-
-  sku_name   = "GP_Gen5_2"
-  storage_mb = 5120
-  version    = "5.7"
-
-  backup_retention_days        = 7
-  geo_redundant_backup_enabled = false
- 
->>>>>>> f200bad2954287b693fc6e7e469720fd907454f6
 
 }
 resource "azurerm_mssql_database" "dev" {
@@ -81,11 +69,4 @@ resource "azurerm_mssql_database" "dev" {
   
 
   
-<<<<<<< HEAD
   
-=======
-  resource_group_name = var.rsgrp
-  server_name         = azurerm_mysql_server.dev.name
-  
-}
->>>>>>> f200bad2954287b693fc6e7e469720fd907454f6
