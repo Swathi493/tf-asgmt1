@@ -67,7 +67,7 @@ resource "azurerm_mssql_virtual_network_rule" "dev" {
   name      = var.mssql_vnrule_name
   
   subnet_id = azurerm_subnet.dev.id
-  tags = var.tags
+  
 
   
   resource_group_name = var.rsgrp
