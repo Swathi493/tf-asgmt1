@@ -81,13 +81,13 @@ stages:
                               terraformVersion: 'latest'
                     - task: TerraformTaskV3@3
                       inputs:
-                              provider: 'azurerm'
-                              command: 'init'
-                              backendServiceArm: 'az-asgmts'
-                              backendAzureRmResourceGroupName: 'Devops-RG'
-                              backendAzureRmStorageAccountName: 'devopstrainingstorage'
-                              backendAzureRmContainerName: 'swathi-tfstate-asgmt'
-                              backendAzureRmKey: 'terraform.tfstate'
+                        provider: 'azurerm'
+                        command: 'init'
+                        backendServiceArm: 'az-asgmts'
+                        backendAzureRmResourceGroupName: 'Devops-RG'
+                        backendAzureRmStorageAccountName: 'devopstrainingstorage'
+                        backendAzureRmContainerName: 'swathi-tfstate-asgmt'
+                        backendAzureRmKey: 'terraform1.tfstate'
                     - task: TerraformTaskV3@3
                       inputs:
                            provider: 'azurerm'
