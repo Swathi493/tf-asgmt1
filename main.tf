@@ -74,23 +74,26 @@ resource "azurerm_key_vault" "KeyVault" {
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false
   sku_name                    = standard
+  
 
-  network_acls {
-    bypass                     = "AzureServices"
-    default_action             = "Allow"    
+ 
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+    key_permissions = [
+      "get",
+    ]
+
+    secret_permissions = [
+      "get", "backup", "delete", "list", "purge", "recover", "restore", "set",
+    ]
+
+    storage_permissions = [
+      "get",
+    ]
   }
-}
-
-# Get DevOps Service Principal information
-data "azuread_service_principal" "devopsSP" {
-  display_name = "az-asgmts"
-}
-
-resource "azurerm_key_vault_access_policy" "devOpsSPpolicy" {
-  key_vault_id       = azurerm_key_vault.KeyVault.id
-  tenant_id          = data.azurerm_client_config.Current.tenant_id
-  object_id          = data.azuread_service_principal.devopsSP.object_id
-  secret_permissions = ["Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set"]
 }
 
 resource "azurerm_key_vault_secret" "SQLAdminSecret" {
