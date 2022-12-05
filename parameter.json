@@ -2,6 +2,14 @@
 
 "data_factory_name" : "",
 "data_bricks_name"  : "",
+"vn_name" : "",
+"sn_name" : "",
+"sql_server_name" : "",
+"mssql_vnrule_name": "",
+"vnet_cidr_prefix" : "",
+"subnet1_cidr_prefix" : "",
+"admin" : "",
+
 "tags" :{
     "created_by"       : "swathi.vijai@tigeranalytics.com",
     "created_for"      : "training"

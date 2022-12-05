@@ -14,12 +14,42 @@ variable "location" {
 
 variable "data_factory_name" {
   type        = string
-  description = "Name of the azure data factory(DEV)"
+  description = "Name of the azure data factory"
 }
 variable "data_bricks_name" {
   type        = string
-  description = "Name of the azure data bricks(DEV)"
+  description = "Name of the azure data bricks"
 }
+variable "vn_name" {
+  type        = string
+  description = "Name of the azure virtual network"
+}
+variable "sn_name" {
+  type        = string
+  description = "Name of the azure subnet"
+}
+variable "sql_server_name" {
+  type        = string
+  description = "Name of the azure sql server"
+}
+variable "mssql_vnrule_name" {
+  type        = string
+  description = "Name of the azure virtual network rule"
+}
+variable "vnet_cidr_prefix" {
+  type = string
+  description = "This variable defines address space for vnet"
+}
+
+variable "subnet1_cidr_prefix" {
+  type = string
+  description = "This variable defines address space for subnetnet"
+}
+variable "admin" {
+  type = string
+  description = "This variable defines admin name for sql"
+}
+
 
 variable "tags" {
   type = object({
