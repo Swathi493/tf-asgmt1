@@ -59,7 +59,7 @@ resource "azurerm_mssql_server" "dev" {
 
   backup_retention_days        = 7
   geo_redundant_backup_enabled = false
-  ssl_enforcement_enabled      = true
+ 
 
 }
 
