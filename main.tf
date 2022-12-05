@@ -46,7 +46,7 @@ resource "random_password" "password" {
 resource "azurerm_mssql_server" "dev" {
   name                         = var.sql_server_name
   resource_group_name          = var.rsgrp
-  location                     = var.loca
+  location                     = var.location
   administrator_login          = var.admin
   administrator_login_password = random_password.password.result
   tags = var.tags
