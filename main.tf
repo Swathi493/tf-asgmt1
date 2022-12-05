@@ -28,7 +28,7 @@ resource "azurerm_subnet" "dev" {
   virtual_network_name = azurerm_virtual_network.dev.name
   address_prefixes     = ["${var.subnet1_cidr_prefix}"]
   service_endpoints    = ["Microsoft.Sql"]
-  tags = var.tags
+  
 }
 resource "random_password" "password" {
   length           = 8
@@ -46,16 +46,31 @@ resource "random_password" "password" {
 resource "azurerm_mssql_server" "dev" {
   name                         = var.sql_server_name
   resource_group_name          = var.rsgrp
-  location                     = var.location
-  version                      = "12.0"
+  location                     = var.loca
   administrator_login          = var.admin
   administrator_login_password = random_password.password.result
-    tags = var.tags
+  tags = var.tags
+  
+  
+
+  sku_name   = "GP_Gen5_2"
+  storage_mb = 5120
+  version    = "5.7"
+
+  backup_retention_days        = 7
+  geo_redundant_backup_enabled = false
+  ssl_enforcement_enabled      = true
+
 }
 
 resource "azurerm_mssql_virtual_network_rule" "dev" {
   name      = var.mssql_vnrule_name
-  server_id = azurerm_mssql_server.dev.id
+  
   subnet_id = azurerm_subnet.dev.id
   tags = var.tags
+
+  
+  resource_group_name = var.rsgrp
+  server_name         = azurerm_mysql_server.dev.name
+  
 }
