@@ -29,6 +29,7 @@ stages:
               workingDirectory: $(System.DefaultWorkingDirectory)
               displayName: 'Run scan'
   - stage: development
+    dependsOn: compliance
     jobs:
       - deployment: Deploy
         variables:
