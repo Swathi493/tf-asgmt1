@@ -49,10 +49,6 @@ variable "admin" {
   type = string
   description = "This variable defines admin name for sql"
 }
-variable "Keyvault_name" {
-  type = string
-  description = "This variable defines admin name for sql"
-}
 
 
 variable "tags" {

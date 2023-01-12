@@ -1,0 +1,15 @@
+---
+metadata:
+  name: "Azure db sku should be standard"
+  id: "CPY_2"
+  category: "CONVENTION"
+
+definition:
+  cond_type: "attribute"
+  resource_types: 
+     - azurerm_databricks_workspace
+  attribute: "sku"
+  operator: "equals"
+  value: "standard"
+
+ 

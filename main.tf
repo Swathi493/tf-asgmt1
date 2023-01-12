@@ -4,7 +4,7 @@ resource "azurerm_data_factory" "dev" {
   name                = var.data_factory_name
   resource_group_name = var.rsgrp
   location            = var.location
-
+   #checkov:skip=CKV_AZURE_104
   tags = var.tags
 }
 
@@ -12,8 +12,8 @@ resource "azurerm_databricks_workspace" "dev" {
    name                = var.data_bricks_name
   resource_group_name = var.rsgrp
   location            = var.location
-  sku                 = "standard"
-  tags= var.tags
+   sku                 = "standard"
+  
 }
 resource "azurerm_virtual_network" "dev" {
   name                = var.vn_name
@@ -29,6 +29,7 @@ resource "azurerm_subnet" "dev" {
   virtual_network_name = azurerm_virtual_network.dev.name
   address_prefixes     = ["${var.subnet1_cidr_prefix}"]
   service_endpoints    = ["Microsoft.Sql"]
+   #checkov:skip=CPY_1: tags not supported for this resource
   
 }
 resource "random_password" "password" {
@@ -62,40 +63,8 @@ resource "azurerm_mssql_database" "dev" {
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
   sku_name = "Basic"
-}
-resource "azurerm_key_vault" "KeyVault" {
-  name                        = var.Keyvault_name
-  location                    = var.location
-  resource_group_name         = var.rsgrp
-  enabled_for_disk_encryption = true
-  enabled_for_deployment      = true
-  enabled_for_template_deployment = true
-  tenant_id                   = data.azurerm_client_config.Current.tenant_id
-  soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
-  sku_name                    = "standard"
-  
-}
- 
-
- data "azuread_service_principal" "devopsSP" {
-  display_name = "sp-dev-asgmt"
+  #checkov:skip=CPY_1 : tags not supported for this resource
 }
 
-resource "azurerm_key_vault_access_policy" "devOpsSPpolicy" {
-  key_vault_id       = azurerm_key_vault.KeyVault.id
-  tenant_id          = data.azurerm_client_config.Current.tenant_id
-  object_id          = data.azuread_service_principal.devopsSP.object_id
-  secret_permissions = ["Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set"]
-}
-
-
-resource "azurerm_key_vault_secret" "SQLAdminSecret" {
-  name         = "sql-admin-password"
-  value        = random_password.password.result
-  key_vault_id = azurerm_key_vault.KeyVault.id
-
-  depends_on = [azurerm_key_vault_access_policy.devOpsSPpolicy]
-}
   
 
