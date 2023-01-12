@@ -3,7 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 
 trigger:
-- none
+- main
 
 pool:
   vmImage: ubuntu-latest
@@ -11,7 +11,25 @@ pool:
 
 
 stages:
+  - stage: compliance
+    jobs:
+        - job: compliance
+          displayName: 'Run terrascan for compliance'
+          pool:
+            vmImage: 'ubuntu-latest'
+
+          steps:
+            - script: |
+                curl --location https://github.com/accurics/terrascan/releases/download/v1.3.1/terrascan_1.3.1_Linux_x86_64.tar.gz --output terrascan.tar.gz
+                tar -xvf terrascan.tar.gz
+                sudo install terrascan /usr/local/bin
+              displayName: 'Install terrascan in pipeline'
+            - script: |
+                terrascan scan -t azure -i terraform
+              workingDirectory: $(System.DefaultWorkingDirectory)
+              displayName: 'Run scan'
   - stage: development
+    dependsOn: compliance
     jobs:
       - deployment: Deploy
         variables:

@@ -32,6 +32,15 @@ resource "azurerm_subnet" "dev" {
    #checkov:skip=CPY_1: tags not supported for this resource
   
 }
+resource "azurerm_network_security_group" "secure_terraform_nsg" {
+  name                = "secureNetworkSecurityGroup"
+  location            = var.location
+  resource_group_name = var.rsgrp
+}
+resource "azurerm_subnet_network_security_group_association" "secure_terraform_nsg_subnet_association" {
+  subnet_id                 = azurerm_subnet.dev.id
+  network_security_group_id = azurerm_network_security_group.secure_terraform_nsg.id
+}
 resource "random_password" "password" {
   length           = 8
   lower            = true
@@ -67,4 +76,5 @@ resource "azurerm_mssql_database" "dev" {
 }
 
   
+
 
